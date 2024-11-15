@@ -31,21 +31,43 @@ This project is a Flask-based API for compressing, rotating, and handling image 
 
 ### **Setup Instructions**
 
-1. **Install Dependencies**:
+
+You're right! Here’s an updated README section that includes setting up a virtual environment.
+
+---
+
+### **Setup Instructions**
+
+1. **Create and Activate a Virtual Environment**:
+   - **Create**:
+     ```bash
+     python -m venv venv
+     ```
+   - **Activate**:
+     - **Windows**: 
+       ```bash
+       venv\Scripts\activate
+       ```
+     - **macOS/Linux**:
+       ```bash
+       source venv/bin/activate
+       ```
+
+2. **Install Dependencies**:
    ```bash
    pip install flask Wand
    ```
 
-2. **Install ImageMagick**:
-   - **Windows**: Download and install from [ImageMagick's official website](https://imagemagick.org/script/download.php).
-   - Make sure the `MAGICK_HOME` environment variable is set, and the ImageMagick binaries are in your `PATH`.
+3. **Install ImageMagick**:
+   - Download and install from [ImageMagick's official website](https://imagemagick.org/script/download.php).
+   - Set the `MAGICK_HOME` environment variable and add ImageMagick to your `PATH`.
 
-3. **Run the Application**:
+4. **Run the Application**:
    ```bash
    python app.py
    ```
 
-4. **API Endpoints**:
+5. **API Endpoints**:
    - **Compress Image**: `/compress` (POST)
    - **Generate Blank Image**: `/blank_image` (GET)
 
