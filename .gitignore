@@ -1,0 +1,65 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment and IDE settings
+env/
+venv/
+.venv/
+*.env
+*.env.*
+*.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+logs/
+*.out
+*.err
+
+# Test output
+coverage/
+*.coverage
+*.cover
+
+# Cache
+*.cache
+.cache/
+*.pytest_cache
+*.mypy_cache
+*.pyo
+
+# Flask-specific
+instance/
+*.db
+*.sqlite3
+*.sqlite
+*.bak
+
+# Image files
+*.jpg
+*.jpeg
+*.png
+output_image.*
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# Dependencies
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Python distribution files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Docker
+*.dockerfile
+.dockerignore
