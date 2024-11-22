@@ -1,5 +1,5 @@
 from flask import Flask, request, send_file, jsonify
-from PIL import Image as PILImage, ExifTags 
+from PIL import Image as PILImage, ExifTags
 import io
 import os
 
@@ -75,9 +75,6 @@ class ImageHelper:
     def resize_image(img, output_stream, file_extension, max_width=1080, max_height=1920):
         # Resize image to fit within max dimensions while preserving aspect ratio
         img.thumbnail((max_width, max_height))  # Resize to fit within the max width/height
-        # Corrected: Save image with proper format (JPEG instead of JPG)
-        if file_extension == 'JPG':
-            file_extension = 'JPEG'  # Pillow uses 'JPEG', not 'JPG'
         img.save(output_stream, format=file_extension)  # Save image to the output stream
 
 

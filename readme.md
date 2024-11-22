@@ -1,9 +1,9 @@
-### README for Flask Image Compression API with Wand (ImageMagick)
+### **README for Flask Image Compression API with Pillow**
 
 ---
 
 #### **Overview**
-This project is a Flask-based API for compressing, rotating, and handling image files. It utilizes the **Wand library**, a Python wrapper for ImageMagick, to perform operations like resizing and correcting image orientations based on EXIF metadata.
+This project is a Flask-based API for compressing, rotating, and handling image files. It utilizes the **Pillow library** (a fork of the Python Imaging Library) to perform operations like resizing and correcting image orientations based on EXIF metadata.
 
 ---
 
@@ -24,15 +24,8 @@ This project is a Flask-based API for compressing, rotating, and handling image 
 
 ### **Dependencies**
 - **Flask**: For building the API endpoints.
-- **Wand**: For image manipulation (requires ImageMagick installed).
+- **Pillow**: For image manipulation (replacing ImageMagick).
 - **io**: For handling input/output streams.
-
----
-
-### **Setup Instructions**
-
-
-You're right! Here’s an updated README section that includes setting up a virtual environment.
 
 ---
 
@@ -55,52 +48,50 @@ You're right! Here’s an updated README section that includes setting up a virt
 
 2. **Install Dependencies**:
    ```bash
-   pip install flask Wand
+   pip install flask pillow
    ```
 
-3. **Install ImageMagick**:
-   - Download and install from [ImageMagick's official website](https://imagemagick.org/script/download.php).
-   - Set the `MAGICK_HOME` environment variable and add ImageMagick to your `PATH`.
-
-4. **Run the Application**:
+3. **Run the Application**:
    ```bash
    python app.py
    ```
 
-5. **API Endpoints**:
+4. **API Endpoints**:
    - **Compress Image**: `/compress` (POST)
    - **Generate Blank Image**: `/blank_image` (GET)
 
 ---
 
-### **Using the Wand Library**
+### **Using the Pillow Library**
 
-The Wand library is a powerful tool for image manipulation, built on top of ImageMagick. Here’s how it’s used in this project:
+Pillow provides an easy-to-use API for image manipulation. Here's how it's used in this project:
 
 1. **EXIF Orientation Correction**:
    ```python
-   exif = img.metadata.get('exif:Orientation')  # Extract orientation
-   if exif == '3':
-       img.rotate(degree=180)  # Upside down
-   elif exif == '6':
-       img.rotate(degree=270)  # Clockwise 270
-   elif exif == '8':
-       img.rotate(degree=90)   # Clockwise 90
+   exif = img._getexif()
+   if exif:
+       orientation = exif.get(274)  # 274 is the EXIF tag for Orientation
+       if orientation == 3:
+           img = img.rotate(180, expand=True)  # Upside down
+       elif orientation == 6:
+           img = img.rotate(270, expand=True)  # Clockwise 270
+       elif orientation == 8:
+           img = img.rotate(90, expand=True)   # Clockwise 90
    ```
 
 2. **Image Rotation**:
    ```python
-   img.rotate(degree=rotation_angle)  # Custom rotation if specified
+   img = img.rotate(rotation_angle, expand=True)  # Custom rotation if specified
    ```
 
 3. **Image Resizing**:
    ```python
-   img.resize(width=new_width, height=new_height)  # Resize while maintaining aspect ratio
+   img.thumbnail((new_width, new_height))  # Resize while maintaining aspect ratio
    ```
 
 4. **Saving the Image**:
    ```python
-   img.save(file=output_stream)  # Save manipulated image to output stream
+   img.save(output_stream, format=file_extension)  # Save manipulated image to output stream
    ```
 
 ---
@@ -138,18 +129,18 @@ curl "http://127.0.0.1:5000/blank_image?width=500&height=500" -o blank_image.jpg
 ---
 
 ### **Troubleshooting**
-1. **ImageMagick Not Found**:
-   - Ensure ImageMagick is installed and added to your system's `PATH`.
-   - Verify using: `magick --version`.
+1. **Unexpected Errors with Pillow**:
+   - Ensure Pillow is properly installed.
+   - Verify the image format is supported (e.g., JPG, PNG).
 
-2. **Unexpected Errors with Wand**:
-   - Check if `MAGICK_HOME` is properly set.
-   - Update to the latest Wand and ImageMagick versions.
+2. **Image Orientation Not Corrected**:
+   - Ensure the image contains valid EXIF data (not all images may have EXIF tags).
+   - Check if the EXIF orientation tag is properly handled.
 
 ---
 
 ### **References**
-- [Wand Documentation](https://docs.wand-py.org/en/stable/)
-- [ImageMagick Official Website](https://imagemagick.org/)
+- [Pillow Documentation](https://pillow.readthedocs.io/en/stable/)
+- [ExifTags in Pillow](https://pillow.readthedocs.io/en/stable/releasenotes/7.0.0.html#support-for-exif-orientation)
 
 ---
