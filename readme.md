@@ -24,7 +24,7 @@ This project is a Flask-based API for compressing, rotating, and handling image 
 
 ### **Dependencies**
 - **Flask**: For building the API endpoints.
-- **Pillow**: For image manipulation (replacing ImageMagick).
+- **Pillow**: For image manipulation.
 - **io**: For handling input/output streams.
 
 ---
